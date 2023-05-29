@@ -1,5 +1,6 @@
 package routers
 
+//routers负责配置路由
 import (
 	"GoGinExample/pkg/setting"
 	"net/http"
@@ -9,10 +10,10 @@ import (
 
 func InitRouter() *gin.Engine {
 	r := gin.New()
-
+	//加载全局中间件Middleware
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
-
+	//设定Mode（Debug)
 	gin.SetMode(setting.RunMode)
 
 	r.GET("/test", func(c *gin.Context) {
