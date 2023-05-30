@@ -1,15 +1,18 @@
 package models
 
+//数据库连接与初始化
 import (
 	"GoGinExample/pkg/setting"
 	"fmt"
 	"log"
 
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var db *gorm.DB
 
+// 为所有模型，如文章标签提供基础结构，便于其他模型共享
 type Model struct {
 	ID         int `gorm:"primary_key" json:"id"`
 	CreatedOn  int `json:"created_on"`

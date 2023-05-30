@@ -3,7 +3,7 @@ package routers
 //routers负责配置路由
 import (
 	"GoGinExample/pkg/setting"
-	"net/http"
+	v1 "GoGinExample/routers/api/v1"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,11 +16,17 @@ func InitRouter() *gin.Engine {
 	//设定Mode（Debug)
 	gin.SetMode(setting.RunMode)
 
-	r.GET("/test", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "test",
-		})
-	})
+	apiv1 := r.Group("/api/v1")
+	{
+		//获取tags
+		apiv1.GET("/tags", v1.GetTags)
+		//新建tag
+		apiv1.POST("/tags", v1.AddTag)
+		//修改文章tag
+		apiv1.PUT("tags/:id", v1.EditTag)
+		//删除文章tag
+		apiv1.DELETE("tags/:id", v1.DeleteTag)
+	}
 
 	return r
 }
