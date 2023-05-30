@@ -15,6 +15,8 @@ type Tag struct {
 	State      int    `json:"state"`
 }
 
+// gorm的Callbacks，可以将回调方法定义为模型结构的指针，在创建、更新、查询、
+// 删除时将被调用，如果任何回调返回错误，gorm 将停止未来操作并回滚所有更改。
 func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {
 	scope.SetColumn("CreatedOn", time.Now().Unix())
 	return nil
@@ -55,5 +57,24 @@ func AddTag(name string, state int, createdBy string) bool {
 		State:     state,
 		CreatedBy: createdBy,
 	})
+	return true
+}
+
+func DeleteTag(id int) bool {
+	db.Where("id = ?", id).Delete(&Tag{})
+
+	return true
+}
+
+func ExistTagByID(id int) bool {
+	var tag Tag
+	db.Select("id").Where("id = ?", id).First(&tag)
+
+	return tag.ID > 0
+}
+
+func EditTag(id int, data interface{}) bool {
+	db.Model(&Tag{}).Where("id = ?", id).Updates(data)
+
 	return true
 }
