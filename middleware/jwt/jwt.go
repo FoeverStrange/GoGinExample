@@ -15,6 +15,7 @@ func JWT() gin.HandlerFunc {
 		var data interface{}
 
 		code = e.SUCCESS
+		//提取token，解析验证token，将结果写入json并根据结果Abort()或Next()
 		token := c.Query("token")
 		if token == "" {
 			code = e.INVALID_PARAMS

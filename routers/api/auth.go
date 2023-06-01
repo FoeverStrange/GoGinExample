@@ -16,6 +16,7 @@ type auth struct {
 	Password string `valid:"Required; MaxSize(50)"`
 }
 
+// 验证用户名密码并生成token返回
 func GetAuth(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
@@ -46,7 +47,7 @@ func GetAuth(c *gin.Context) {
 			log.Println(err.Key, err.Message)
 		}
 	}
-
+	//拿到token返回
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
