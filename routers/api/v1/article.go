@@ -3,6 +3,7 @@ package v1
 import (
 	"GoGinExample/models"
 	"GoGinExample/pkg/e"
+	"GoGinExample/pkg/logging"
 	"GoGinExample/pkg/setting"
 	"GoGinExample/pkg/util"
 	"log"
@@ -72,6 +73,7 @@ func GetArticles(c *gin.Context) {
 	} else {
 		for _, err := range valid.Errors {
 			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -118,6 +120,7 @@ func AddArticle(c *gin.Context) {
 	} else {
 		for _, err := range valid.Errors {
 			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	//参数返回

@@ -3,6 +3,7 @@ package api
 import (
 	"GoGinExample/models"
 	"GoGinExample/pkg/e"
+	"GoGinExample/pkg/logging"
 	"GoGinExample/pkg/util"
 	"log"
 	"net/http"
@@ -45,6 +46,8 @@ func GetAuth(c *gin.Context) {
 	} else {
 		for _, err := range valid.Errors {
 			log.Println(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
+			// fmt.Println("<<<<<<<<<<<<")
 		}
 	}
 	//拿到token返回
