@@ -50,7 +50,6 @@ func ExistTagByName(name string) bool {
 	return tag.ID > 0
 }
 
-// 增加标签
 func AddTag(name string, state int, createdBy string) bool {
 	db.Create(&Tag{
 		Name:      name,
