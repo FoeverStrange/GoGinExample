@@ -18,8 +18,12 @@ type Tag struct {
 // func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
 // 	scope.SetColumn("ModifiedOn", time.Now().Unix())
 
-// 	return nil
-// }
+//		return nil
+//	}
+func CleanAllTag() bool {
+	db.Unscoped().Where("deleted_on != ?", 0).Delete(&Tag{})
+	return true
+}
 
 // 获取tags
 func GetTags(pageNum int, pageSize int, maps interface{}) (tags []Tag) {

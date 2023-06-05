@@ -15,3 +15,9 @@ func CheckAuth(username, password string) bool {
 
 	return auth.ID > 0
 }
+
+// 硬删除所有已经被软删除的article
+func CleanAllArticle() bool {
+	db.Unscoped().Where("deleted_on != ?", 0).Delete(&Article{})
+	return true
+}
