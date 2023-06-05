@@ -1,11 +1,5 @@
 package models
 
-import (
-	"time"
-
-	"github.com/jinzhu/gorm"
-)
-
 type Tag struct {
 	Model
 
@@ -17,15 +11,15 @@ type Tag struct {
 
 // gorm的Callbacks，可以将回调方法定义为模型结构的指针，在创建、更新、查询、
 // 删除时将被调用，如果任何回调返回错误，gorm 将停止未来操作并回滚所有更改。
-func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {
-	scope.SetColumn("CreatedOn", time.Now().Unix())
-	return nil
-}
-func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
-	scope.SetColumn("ModifiedOn", time.Now().Unix())
+// func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {
+// 	scope.SetColumn("CreatedOn", time.Now().Unix())
+// 	return nil
+// }
+// func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
+// 	scope.SetColumn("ModifiedOn", time.Now().Unix())
 
-	return nil
-}
+// 	return nil
+// }
 
 // 获取tags
 func GetTags(pageNum int, pageSize int, maps interface{}) (tags []Tag) {
