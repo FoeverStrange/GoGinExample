@@ -3,8 +3,10 @@ package routers
 //routers负责配置路由
 import (
 	"GoGinExample/pkg/setting"
+	"GoGinExample/pkg/upload"
 	"GoGinExample/routers/api"
 	v1 "GoGinExample/routers/api/v1"
+	"net/http"
 
 	_ "GoGinExample/docs"
 
@@ -21,8 +23,11 @@ func InitRouter() *gin.Engine {
 	//设定Mode（Debug)
 	gin.SetMode(setting.ServerSetting.RunMode)
 
+	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.GET("/auth", api.GetAuth)
+	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
 	// apiv1.Use(jwt.JWT())
